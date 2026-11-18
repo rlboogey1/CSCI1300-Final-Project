@@ -4,53 +4,53 @@
 
 #include "Location.h"
 
-Location::Location() {
+Location::Location() { // default Location Constructor
     x = 0;
     y = 0;
-}
+} 
 
-Location::Location(int xPos, int yPos) {
+Location::Location(int xPos, int yPos) { // location parameterized constructor
     x = xPos;
     y = yPos;
 }
 
-void Location::add(Location& other) {
+void Location::add(Location& other) { 
     x += other.x;
     y += other.y;
-}
+} 
 
-void Location::incX() {
+void Location::incX() { // increase x position
     x++;
 }
 
-void Location::decX() {
+void Location::decX() { // decrease x position
     x--;
 }
 
-void Location::incY() {
+void Location::incY() { // increase y position
     y++;
 }
 
-void Location::decY() {
+void Location::decY() { // decrease y position
     y--;
 }
 
-bool Location::equals( Location& other) {
-    return x == other.x && y == other.y;
+bool Location::equals( Location& other) {  //check if two objects have the same coordinates 
+    return x == other.x && y == other.y; 
 }
 
 string Location::toString() {
-    return "(" + to_string(x) + ", " + to_string(y) + ")";
+    return "(" + to_string(x) + ", " + to_string(y) + ")"; // turns a location into a readable string
 }
 
-bool Location::isWithinBounds(int width, int height) {
+bool Location::isWithinBounds(int width, int height) { // checks if location is within bounds
     return x >= 0 && x < width && y >= 0 && y < height;
 }
 
-int Location::getX() {
+int Location::getX() { // getter that returns x 
     return x;
 }
 
-int Location::getY() {
+int Location::getY() { // getter than returns y
     return y;
 }
