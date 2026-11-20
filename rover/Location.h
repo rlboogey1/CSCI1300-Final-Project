@@ -2,10 +2,12 @@
 // Created by William Wright on 10/28/26.
 //
 
+
 #ifndef CSCI1300_CS1_LOCATION_H
 #define CSCI1300_CS1_LOCATION_H
 #include <string>
 using namespace std;
+
 
 class Location {
     int x = 0;

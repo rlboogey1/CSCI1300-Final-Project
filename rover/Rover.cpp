@@ -11,7 +11,7 @@ using namespace std;
 #include "World.h"
 #include "Rover.h"
 
-string Rover::directionToString(Direction direction) {
+string Rover::directionToString(Direction direction) {   //turns direction into a string 
     switch (direction) {
         case Direction::NORTH: return "NORTH";
         case Direction::EAST: return "EAST";
@@ -25,18 +25,18 @@ Rover::Rover(World& mars, Location initialLocation, Direction initialHeading, in
     world = mars;
     location = initialLocation;
     heading = initialHeading;
-    batteryLevel = initialBatteryLevel;
-}
+    batteryLevel = initialBatteryLevel; 
+} //rover parameterized constructor
 
 void Rover::setPosition(Location next) {
     location = next;
-}
+} //set rover position to the next
 
-bool Rover::turnLeft() {
-    if (batteryLevel < TURN_COST)
+bool Rover::turnLeft() { //turn left function
+    if (batteryLevel < TURN_COST) // returns false if there is no more battery
         return false;
     switch (heading) {
-        case Direction::NORTH: heading = Direction::WEST;
+        case Direction::NORTH: heading = Direction::WEST; 
             break;
         case Direction::EAST: heading = Direction::NORTH;
             break;
@@ -50,7 +50,7 @@ bool Rover::turnLeft() {
 }
 
 bool Rover::turnRight() {
-    if (batteryLevel < TURN_COST)
+    if (batteryLevel < TURN_COST) // returns false if there is no more battery
         return false;
     switch (heading) {
         case Direction::NORTH: heading = Direction::EAST;
@@ -67,17 +67,17 @@ bool Rover::turnRight() {
 }
 
 bool Rover::scan() {
-    if (batteryLevel < SCAN_COST)
+    if (batteryLevel < SCAN_COST) // scan area function
         return false;
     batteryLevel -= SCAN_COST;
     return true;
 }
 
-bool Rover::isAtLocation(Location& position) {
+bool Rover::isAtLocation(Location& position) { // checks if rover is at a given position
     return location.equals(position);
 }
 
-bool Rover::charge() {
+bool Rover::charge() { // checks if rover is at charging station. If not returns false
     if (world.isLocationAChargingStation(location)) {
         batteryLevel = FULL_CHARGE;
         return true;
@@ -85,13 +85,13 @@ bool Rover::charge() {
     return false;
 }
 
-string Rover::toString() {
+string Rover::toString() { // returns current status
     return "coordinates: " + location.toString()
            + ", Heading: " + directionToString(heading)
            + ", Battery: " + to_string(batteryLevel);
 }
 
-bool Rover::goForward() {
+bool Rover::goForward() { // move forward function
     if (batteryLevel < MOVE_COST) {
         return false;
     }
@@ -110,12 +110,12 @@ bool Rover::goForward() {
     if (world.isOutOfBounds(nextPossibleLocation)) {
         return false; // command failed, tried to move outside world boundaries
     }
-    location = nextPossibleLocation;
+    location = nextPossibleLocation; //replaces current location
     batteryLevel -= MOVE_COST;
     return true;
 }
 
-bool Rover::executeCommand(const char command) {
+bool Rover::executeCommand(const char command) { //Executes command 
     bool wasSuccessful = false;
     switch (command) {
         case COMMAND_FORWARD: wasSuccessful = goForward(); break;
@@ -131,7 +131,7 @@ bool Rover::executeCommand(const char command) {
     return wasSuccessful;
 }
 
-void Rover::executeMission(Mission& mission) {
+void Rover::executeMission(Mission& mission) { //executes mission
     bool goalReached = false;
     for (char command: mission.getCommands()) {
         bool successful = executeCommand(command);
@@ -143,7 +143,7 @@ void Rover::executeMission(Mission& mission) {
     mission.setGoalReached(goalReached);
 }
 
-void Rover::printCommandStatus(char command, bool wasSuccessful) {
+void Rover::printCommandStatus(char command, bool wasSuccessful) { //prints command status 
     cout << "Command " << command << " ";
     if (wasSuccessful) {
         cout << "succeeded. ";

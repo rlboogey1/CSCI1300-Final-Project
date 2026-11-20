@@ -2,6 +2,7 @@
 // Created by William Wright on 10/28/26.
 //
 
+
 #include "Location.h"
 
 Location::Location() { // default Location Constructor
